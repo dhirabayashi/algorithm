@@ -24,7 +24,7 @@ class MyGenericStack<E>(
         data[++top] = elem
     }
 
-    fun pop(): E? {
+    fun pop(): E {
         if(top < 0) {
             throw NoSuchElementException()
         }
