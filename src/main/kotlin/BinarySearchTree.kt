@@ -1,12 +1,17 @@
 fun main() {
     val tree = BinarySearchTree<Int, Int>()
-    tree.add(1, 1)
-    tree.add(2, 2)
-    tree.add(3, 3)
-    tree.add(5, 5)
-    tree.add(4, 4)
+    tree.add(1, 1 * 2)
+    tree.add(2, 2 * 2)
+    tree.add(3, 3 * 2)
+    tree.add(5, 5 * 2)
+    tree.add(4, 4 * 2)
 
     println(tree)
+
+    println(tree.search(1))
+    println(tree.search(3))
+    println(tree.search(0))
+    println(tree.search(9))
 }
 
 data class BinarySearchTreeNode<K : Comparable<K>, V> (
@@ -26,6 +31,26 @@ class BinarySearchTree<K : Comparable<K>, V> {
         } else {
             val node = add(root!!, key, value)
             return node
+        }
+    }
+
+    fun search(key: K): V? {
+        return search(root, key)
+    }
+
+    private fun search(node: BinarySearchTreeNode<K, V>?, key: K): V? {
+        if(node == null) {
+            return null
+        }
+
+        if(node.key == key) {
+            return node.value
+        }
+
+        return if(node.key > key) {
+            search(node.left, key)
+        } else {
+            search(node.right, key)
         }
     }
 
