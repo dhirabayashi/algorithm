@@ -16,6 +16,8 @@ fun insertionSort(array: IntArray) {
         for(j in i downTo 1) {
             if(array[j-1] > array[j]) {
                 array.swap(j-1, j)
+            } else {
+                break
             }
         }
     }
