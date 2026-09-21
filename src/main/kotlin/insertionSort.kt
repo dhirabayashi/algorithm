@@ -5,6 +5,10 @@ fun main() {
     insertionSort(array)
 
     println(array.toList())
+
+    if(!testSorted(1000, 1000)) {
+        println("failed")
+    }
 }
 
 fun insertionSort(array: IntArray) {
@@ -27,4 +31,28 @@ private fun IntArray.swap(i: Int, j: Int) {
     val tmp = this[i]
     this[i] = this[j]
     this[j] = tmp
+}
+
+private fun testSorted(count: Int, limit: Int): Boolean {
+    val valueRange = Int.MIN_VALUE..Int.MAX_VALUE
+    val sizeRange = 0 until limit
+
+    for(i in 0 until count) {
+        val size = sizeRange.random()
+        val array = IntArray(size)
+        for(j in 0 until size) {
+            array[j] = valueRange.random()
+        }
+
+        val copy = array.clone()
+        insertionSort(array)
+
+        if(array.toList() != copy.toList().sorted()) {
+            println("failed")
+            println("original: $copy")
+            println("sorted: $array")
+            return false
+        }
+    }
+    return true
 }

@@ -5,6 +5,10 @@ fun main() {
     val result = mergeSort(array)
 
     println(result.toList())
+
+    if(!testSorted(1000, 100000)) {
+        println("failed")
+    }
 }
 
 fun mergeSort(array: IntArray): IntArray {
@@ -67,4 +71,27 @@ fun IntArray.takeLastAsIntArray(n: Int): IntArray {
         array[i - diff] = this[i]
     }
     return array
+}
+
+private fun testSorted(count: Int, limit: Int): Boolean {
+    val valueRange = Int.MIN_VALUE..Int.MAX_VALUE
+    val sizeRange = 0 until limit
+
+    for(i in 0 until count) {
+        val size = sizeRange.random()
+        val array = IntArray(size)
+        for(j in 0 until size) {
+            array[j] = valueRange.random()
+        }
+
+        val sorted = mergeSort(array)
+
+        if(sorted.toList() != array.toList().sorted()) {
+            println("failed")
+            println("original: $array")
+            println("sorted: $sorted")
+            return false
+        }
+    }
+    return true
 }
